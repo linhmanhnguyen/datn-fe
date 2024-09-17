@@ -20,7 +20,7 @@ class AuthController {
             console.log(response.data)
 
             if (response.data.isSuccess) {
-                res.cookie('email', req.body.email);
+                res.cookie('userId', response.data.userId);
                 // res.redirect('/register');
                 
                 await HomeController.homeRender(req, res);

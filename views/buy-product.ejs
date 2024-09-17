@@ -208,13 +208,22 @@
                     </form>
                     
                     <script>
+                        function getCookie(name) {
+                            const value = `; ${document.cookie}`;
+                            const parts = value.split(`; ${name}=`);
+                            if (parts.length === 2) return parts.pop().split(';').shift();
+                            return null; // Trả về null nếu không tìm thấy cookie
+                        }
+                        
                         // Lấy đối tượng form
                         const form = document.getElementById('myForm');
-                    
+                        const quantity = document.getElementById('quantity').value;
+
                         // Thêm sự kiện 'submit' để ngăn chặn hành động mặc định
                         form.addEventListener('submit', function(event) {
                             event.preventDefault(); // Ngăn chặn hành động gửi form
                             console.log('Form submission disabled');
+                            const userId = getCookie('userId');
 
                             fetch('https://cda8-2405-4803-e66f-d7b0-b45c-e2a-dd7d-1b1a.ngrok-free.app/v1/sites/cart', {
                                 method: 'POST',
@@ -222,9 +231,9 @@
                                     'Content-Type': 'application/json'
                                 },
                                 body: JSON.stringify({
-                                    userID: '6696c0a303882bed20f25974',
-                                    productID: '66d92448af7f7d7628a1965f',
-                                    soLuong: parseInt("1") // Sử dụng giá trị số lượng từ input
+                                    userID: userId,
+                                    productID: product.data.productID,
+                                    soLuong: parseInt(quantity) // Sử dụng giá trị số lượng từ input
                                 })
                             })
                             .then(response => response.json())
