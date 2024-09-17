@@ -197,16 +197,48 @@
                     </p>
     
                     <h6>Nhanh lên - Chỉ còn <%= product.data.stockCount || '15' %> sản phẩm trong kho.</h6>
-    
-                    <form>
-                        <button class="add-to-cart">Thêm vào giỏ hàng</button>
+                    <form id="myForm">
+                        <button type="submit" class="add-to-cart add-to-cart2">Thêm vào giỏ hàng</button>
                         <span class="buyNow btn">Mua ngay</span>
-    
+                    
                         <div class="quantity">
                             <span>Số lượng</span>
                             <input type="number" value="1" min="1" placeholder="Số lượng">
                         </div>
                     </form>
+                    
+                    <script>
+                        // Lấy đối tượng form
+                        const form = document.getElementById('myForm');
+                    
+                        // Thêm sự kiện 'submit' để ngăn chặn hành động mặc định
+                        form.addEventListener('submit', function(event) {
+                            event.preventDefault(); // Ngăn chặn hành động gửi form
+                            console.log('Form submission disabled');
+
+                            fetch('https://cda8-2405-4803-e66f-d7b0-b45c-e2a-dd7d-1b1a.ngrok-free.app/v1/sites/cart', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    userID: '6696c0a303882bed20f25974',
+                                    productID: '66d92448af7f7d7628a1965f',
+                                    soLuong: parseInt("1") // Sử dụng giá trị số lượng từ input
+                                })
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                // Xử lý phản hồi từ API
+                                console.log('API response:', data);
+                                alert('Đã thêm vào giỏ hàng thành công');
+                            })
+                            .catch(error => {
+                                console.error('Đã xảy ra lỗi:', error);
+                                alert('Đã xảy ra lỗi khi thêm vào giỏ hàng');
+                            });
+                        });
+                    </script>
     
                     <ul class="product-action">
                         <li><a href="#"><i class="fa-regular fa-heart"></i></a></li>
