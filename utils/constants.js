@@ -3,9 +3,8 @@ export const CONSTANTS = Object.freeze({
 
     LOCAL_URL: 'http://localhost:3300',
 
-    NGROK_URL: 'https://b542-2405-4803-e66f-d7b0-b45c-e2a-dd7d-1b1a.ngrok-free.app',
+    NGROK_URL: 'https://cda8-2405-4803-e66f-d7b0-b45c-e2a-dd7d-1b1a.ngrok-free.app',
     
-
     API_VERSION_V1: '/v1',
 
     //APIs for site manager

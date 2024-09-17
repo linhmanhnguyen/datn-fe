@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import HomeController from './homeController.js';
+
 class AuthController {
 
     static async login(req, res) {
@@ -20,8 +22,8 @@ class AuthController {
             if (response.data.isSuccess) {
                 res.cookie('email', req.body.email);
                 // res.redirect('/register');
-
-                res.render('test')
+                
+                await HomeController.homeRender(req, res);
             } else {
                 res.render('login', { error: 'Email hoặc mật khẩu không đúng' });
             }
