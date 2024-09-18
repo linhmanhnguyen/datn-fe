@@ -8,7 +8,7 @@ class BuyProductController {
             const productID = req.params.id; // Retrieve product ID from route parameter
 
             if (productID) {
-                const response = await axios.get(`${CONSTANTS.NGROK_URL}/${CONSTANTS.API_PRODUCT}/${productID}`);
+                const response = await axios.get(`${CONSTANTS.LOCAL_URL}/${CONSTANTS.API_PRODUCT}/${productID}`);
                 const productDetails = response.data;
 
                 res.json({
@@ -34,7 +34,7 @@ class BuyProductController {
         const productID = req.query.productID;
         try {
 
-            const response = await axios.get(`${CONSTANTS.NGROK_URL}/v1/sites/products/detail/?productID=${productID}`);
+            const response = await axios.get(`${CONSTANTS.LOCAL_URL}/v1/sites/products/detail/?productID=${productID}`);
             const productDetails = response.data;
     
             res.render('buy-product', { product: productDetails });

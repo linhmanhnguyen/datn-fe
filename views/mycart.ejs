@@ -171,47 +171,42 @@
 
             <div class="opc-sidebar">
                 <h4>Đơn hàng</h4>
-
-                <p class="totl">Tổng cộng: 133.000 VND</p>
-
+        
+                <!-- Hiển thị tổng cộng -->
+                <p class="totl">Tổng cộng: <%= totalAmount %></p>
+        
                 <div class="opc-box">
                     <div class="count-items">
-                        <p class="cont-p"> <span class="count-item-number">3</span> sản phẩm trong giỏ hàng</p>
+                        <!-- Hiển thị số lượng sản phẩm trong giỏ hàng -->
+                        <p class="cont-p"> <span class="count-item-number"><%= totalItems %></span> sản phẩm trong giỏ hàng</p>
                     </div>
-
-                    <div class="item">
-                        <img src="/publics/assets/img/home/product-13.jpg" alt="">
-                        <div class="info-item">
-                            <p class="name-item">Tủ lạnh LG 4 cửa 19 feet 530L inverter GC-B22FTLFL</p>
-                            <p class="price-item">Giá: <span>133.000 VND</span></p>
-                            <p class="count">Số lượng: <span>2</span></p>
+        
+                    <!-- Lặp qua từng sản phẩm trong giỏ hàng -->
+                    <% if (cartItems.length > 0) { %>
+                        <% cartItems.forEach(item => { %>
+                        <div class="item">
+                            <!-- Sử dụng hình ảnh sản phẩm -->
+                            <img src="<%= item.imageDefault || '/publics/assets/img/default-product.jpg' %>" alt="<%= item.tenSanPham %>">
+                            <div class="info-item">
+                                <!-- Hiển thị tên sản phẩm -->
+                                <p class="name-item"><%= item.tenSanPham %></p>
+                                <!-- Hiển thị giá sản phẩm -->
+                                <p class="price-item">Giá: <span><%= item.gia %></span></p>
+                                <!-- Hiển thị số lượng -->
+                                <p class="count">Số lượng: <span><%= item.soLuong %></span></p>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="item">
-                        <img src="/publics/assets/img/home/product-9.jpg" alt="">
-                        <div class="info-item">
-                            <p class="name-item">Tủ lạnh LG 4 cửa 19 feet 530L inverter GC-B22FTLFL</p>
-                            <p class="price-item">Giá: <span>133.000 VND</span></p>
-                            <p class="count">Số lượng: <span>2</span></p>
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <img src="/publics/assets/img/home/product-1.jpg" alt="">
-                        <div class="info-item">
-                            <p class="name-item">Tủ lạnh LG 4 cửa 19 feet 530L inverter GC-B22FTLFL</p>
-                            <p class="price-item">Giá: <span>133.000 VND</span></p>
-                            <p class="count">Số lượng: <span>2</span></p>
-                        </div>
-                    </div>
+                        <% }); %>
+                    <% } else { %>
+                        <p>Không có sản phẩm nào trong giỏ hàng.</p>
+                    <% } %>
                 </div>
-
+        
                 <div class="btn-div">
                     <a href="#info-user" class="btn">Hoàn tất đơn hàng</a>
                 </div>
             </div>
-
+            
             <div class="row contanier">
                 <div class="coupon-all">
                     <div class="coupon">

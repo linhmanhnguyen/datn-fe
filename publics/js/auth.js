@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        fetch('https://cda8-2405-4803-e66f-d7b0-b45c-e2a-dd7d-1b1a.ngrok-free.app/v1/sites/auth/login', {
+        fetch('/v1/sites/auth/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
