@@ -6,7 +6,6 @@ import homeAPIs from './home/index.js';
 
 import myCartAPIs from './mycart/index.js';
 import buyProductAPIs from './buyProduct/index.js';
-import betuflpageAPIs from './betuflpage/index.js';
 import featuresAPIs from './features/features.js';
 
 const router = express.Router()
@@ -15,7 +14,6 @@ router.use(CONSTANTS.API_AUTH, authAPIs);
 
 router.use('/', homeAPIs)
 
-router.use('/', betuflpageAPIs);
 router.use('/', buyProductAPIs);
 router.use('/', featuresAPIs);
 router.use('/', myCartAPIs);

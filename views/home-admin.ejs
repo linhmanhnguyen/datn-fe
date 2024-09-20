@@ -21,7 +21,6 @@
 <body class="menu-side-in-bag">
 
     <header>
-
         <div class="header-top">
             <div class="contanier">
                 <p>Chào mừng bạn đến với Cửa hàng XPrim</p>
@@ -57,29 +56,24 @@
             <div class="contanier">
                 <i id="open-side" class="fa-solid fa-bars"></i>
                 <ul class="nav-links">
-
                     <li>
-                        <a href="index.html"><i class="fa-solid fa-laptop"></i> Laptop</a>
+                        <a href="/v1/sites/features?categoryID=66d9144faf7f7d7628a1965d"><i class="fa-solid fa-laptop"></i>Laptop</a>
                     </li>
 
                     <li>
-                        <a href="#"><i class="fa-solid fa-mobile-alt"></i> Điện thoại, Tablet</a>
+                        <a href="/v1/sites/features?categoryID=66eae9759358dc725422687a"><i class="fa-solid fa-mobile-alt"></i> Điện thoại, Tablet</a>
                     </li>
 
                     <li>
-                        <a href="#"><i class="fa-solid fa-headphones-alt"></i> Âm thanh</a>
+                        <a href="/v1/sites/features?categoryID=66eae98b9358dc725422687b"><i class="fa-solid fa-headphones-alt"></i> Âm thanh</a>
                     </li>
 
                     <li>
-                        <a href="#"><i class="fa-regular fa-clock"></i> Đồng hồ</a>
+                        <a href="/v1/sites/features?categoryID=66eb18c79358dc725422688d"><i class="fa-regular fa-clock"></i> Đồng hồ</a>
                     </li>
 
                     <li>
-                        <a href="#"><i class="fa-solid fa-tools"></i> Phụ kiện</a>
-                    </li>
-
-                    <li>
-                        <a href="#"><i class="fa-solid fa-desktop"></i> PC, Màn hình, máy in</a>
+                        <a href="/v1/sites/features?categoryID=66eae9a79358dc725422687c"><i class="fa-solid fa-computer-mouse"></i></i>Chuột máy tính</a>
                     </li>
 
                 </ul>
@@ -88,17 +82,24 @@
         </div>
 
     </header>
+
     <div class="slide">
         <div class="slide-swp swiper mySwiper">
             <div class="swiper-wrapper">
-                <div class="swiper-slide swiper-slide1">
-                    <img src="/publics/assets/img/home/slide1.png" alt="">
+                <div class="swiper-slide swiper-slide1" style="display: flex;
+    justify-content: center;">
+                    <img src="/publics/assets/img/home/slide1.png" style="    width: 80%;
+    height: 550px;" alt="">
                 </div>
-                <div class="swiper-slide swiper-slide2">
-                    <img src="/publics/assets/img/home/slide2.png" alt="">
+                <div class="swiper-slide swiper-slide2" style="display: flex;
+    justify-content: center;">
+                    <img src="/publics/assets/img/home/slide2.png" style="    width: 80%;
+    height: 550px;" alt="">
                 </div>
-                <div class="swiper-slide swiper-slide3">
-                    <img src="/publics/assets/img/home/slide3.png" alt="">
+                <div class="swiper-slide swiper-slide3" style="display: flex;
+    justify-content: center;">
+                    <img src="/publics/assets/img/home/slide3.png" style="    width: 80%;
+    height: 550px;" alt="">
                 </div>
             </div>
             <div class="swiper-pagination"></div>
@@ -207,7 +208,8 @@
                                     <img src="<%= laptop.imgHover %>" class="hover-img" alt="Product Hover Image">
                                 </div>
                                 <div class="content">
-                                    <a class="product-item-link">
+                                    <a href="/v1/sites/buy-product/?productID=<%= laptop._id %>"
+                                        class="product-item-link">
                                         <%= laptop.tenSanPham %>
                                     </a>
                                     <div class="stars">
@@ -263,7 +265,8 @@
                                     <img src="<%= product.imgHover  %>" class="hover-img">
                                 </div>
                                 <div class="content">
-                                    <a class="product-item-link">
+                                    <a href="/v1/sites/buy-product/?productID=<%= product._id %>"
+                                        class="product-item-link">
                                         <%= product.tenSanPham %>
                                     </a>
                                     <div class="stars">
@@ -325,7 +328,8 @@
                                     <img src="<%= product.imgHover %>" class="hover-img">
                                 </div>
                                 <div class="content">
-                                    <a class="product-item-link">
+                                    <a href="/v1/sites/buy-product/?productID=<%= product._id %>"
+                                        class="product-item-link">
                                         <%= product.tenSanPham %>
                                     </a>
                                     <div class="stars">

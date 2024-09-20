@@ -1,11 +1,14 @@
 import axios from 'axios';
 import { CONSTANTS } from '../utils/constants.js';
 
+import HomeController from './homeController.js';
+import CartController from './myCart.js'
+
 class BuyProductController {
 
     static async showProductDetail(req, res) {
         try {
-            const productID = req.params.id; // Retrieve product ID from route parameter
+            const productID = req.params.id; 
 
             if (productID) {
                 const response = await axios.get(`${CONSTANTS.LOCAL_URL}/${CONSTANTS.API_PRODUCT}/${productID}`);
@@ -32,12 +35,17 @@ class BuyProductController {
 
     static async buyProductRender(req, res) {
         const productID = req.query.productID;
-        try {
 
+        try {
             const response = await axios.get(`${CONSTANTS.LOCAL_URL}/v1/sites/products/detail/?productID=${productID}`);
-            const productDetails = response.data;
+            const productsList = await HomeController.danhSachSanPhamCoLuotGiamGiaCaoNhat();
+            const soSanPhamTrongGio = await CartController.getCartByCartID(req.cookies.gioHangID)
     
-            res.render('buy-product', { product: productDetails });
+            res.render('buy-product', { 
+                product: response.data,
+                productsList: productsList.data,
+                soSanPhamTrongGio: soSanPhamTrongGio.data.totalItems
+            });
         } catch (error) {
 
             console.error('Error fetching product details:', error);

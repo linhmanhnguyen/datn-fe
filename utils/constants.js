@@ -10,6 +10,7 @@ export const CONSTANTS = Object.freeze({
     //APIs for site manager
     API_SITES: '/sites',
     API_TOOLS: '/tools',
+    API_ADMINS: '/admin',
 
     API_TRANG_CHU: "/",
 

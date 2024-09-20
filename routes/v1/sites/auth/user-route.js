@@ -5,13 +5,13 @@ import AuthController from '../../../../controller/authController.js';
 
 const authenticationRouter = express.Router();
 
-// API đăng nhập
-authenticationRouter.post(
-  CONSTANTS.API_AUTH_LOGIN,
-  // apiKeyAuthenticate(),
-  // validateRequest(CONSTANTS.VALIDATOR_AUTH_API),
-  AuthController.login
-);
+// // API đăng nhập
+// authenticationRouter.post(
+//   CONSTANTS.API_AUTH_LOGIN,
+//   // apiKeyAuthenticate(),
+//   // validateRequest(CONSTANTS.VALIDATOR_AUTH_API),
+//   AuthController.login
+// );
 
 // Render Login page
 authenticationRouter.get(

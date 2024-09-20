@@ -123,6 +123,7 @@ var swiper = new Swiper(".slide-swp", {
   btnOpenSide.onclick = () => {
     sideBar.classList.add('active')
   }
+  
   btnCloseSide.onclick = () => {
     sideBar.classList.remove('active')
   }

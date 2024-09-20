@@ -8,6 +8,7 @@
 
     <title>TOPICO</title>
 
+
     <!-- Link CSS của Swiper -->
     <link rel="stylesheet" href="/publics/swiperJs/swiper-bundle.min.css" />
 
@@ -16,6 +17,26 @@
 
     <!-- Link File CSS -->
     <link rel="stylesheet" href="/publics/assets/styles/style.css">
+
+    <link rel="stylesheet" href="/publics/assets/styles/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/publics/assets/styles/css/blue.css">
+
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        .icheckbox_flat-blue,
+        .iradio_flat-blue {
+            top: -2px;
+            margin-right: 5px;
+        }
+
+        .txtGray {
+            color: #798594;
+        }
+    </style>
+
 </head>
 
 <body class="menu-side-in-bag">
@@ -45,8 +66,10 @@
                     </form>
                 </div>
                 <div class="card">
-                    <a href="mycart.html"><i class="fa-solid fa-bag-shopping"></i> <span
-                            class="count-in-card">2</span></a>
+                    <a href="/v1/sites/my-cart/">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span class="count-in-card">2</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -57,102 +80,28 @@
                 <ul class="nav-links">
 
                     <li>
-                        <a href="index.html">Laptop</a>
-
-                        <div class="drobdwon">
-                            <ul>
-                                <li><a href="#">Macbook</a></li>
-                            </ul>
-                            <ul>
-                                <li><a href="#">ASUS</a></li>
-                            </ul>
-                            <ul>
-                                <li><a href="#">Lenovo</a></li>
-                            </ul>
-                            <ul>
-                                <li><a href="#">Dell</a></li>
-                            </ul>
-                            <ul>
-                                <li><a href="#">HP</a></li>
-                            </ul>
-                            <ul>
-                                <li><a href="#">Acer</a></li>
-                            </ul>
-                            <ul>
-                                <li><a href="#">LG</a></li>
-                            </ul>
-                            <ul>
-                                <li><a href="#">MSI</a></li>
-                            </ul>
-                            <ul>
-                                <li><a href="#">Xem tất cả sản phẩm</a></li>
-                            </ul>
-                        </div>
+                        <a href="/v1/sites/features?categoryID=66d9144faf7f7d7628a1965d"><i
+                                class="fa-solid fa-laptop"></i>Laptop</a>
                     </li>
 
                     <li>
-                        <a href="#">Điện thoại, Tablet</a>
-
-                        <div class="drobdwon">
-                            <ul>
-                                <li><a href="#">Iphone</a></li>
-                            </ul>
-                            <ul>
-                                <li><a href="#">SamSung</a></li>
-                            </ul>
-                            <ul>
-                                <li><a href="#">Xiaomi</a></li>
-                            </ul>
-                            <ul>
-                                <li><a href="#">OPPO</a></li>
-                            </ul>
-                            <ul>
-                                <li><a href="#">vivo</a></li>
-                            </ul>
-                            <ul>
-                                <li><a href="#">Xem tất cả sản phẩm</a></li>
-                            </ul>
-                        </div>
+                        <a href="/v1/sites/features?categoryID=66eae9759358dc725422687a"><i
+                                class="fa-solid fa-mobile-alt"></i> Điện thoại, Tablet</a>
                     </li>
 
                     <li>
-                        <a href="#">Âm thanh</a>
-
-                        <div class="drobdwon">
-                            <ul>
-                                <li><a href="#">Bluetooth</a></li>
-                            </ul>
-                            <ul>
-                                <li><a href="#">Chụp tai</a></li>
-                            </ul>
-                            <ul>
-                                <li><a href="#">Nhét tai</a></li>
-                            </ul>
-                            <ul>
-                                <li><a href="#">Có dây</a></li>
-                            </ul>
-                            <ul>
-                                <li><a href="#">Thể thao</a></li>
-                            </ul>
-                            <ul>
-                                <li><a href="#">Gaming</a></li>
-                            </ul>
-                            <ul>
-                                <li><a href="#">Xem tất cả sản phẩm</a></li>
-                            </ul>
-                        </div>
+                        <a href="/v1/sites/features?categoryID=66eae98b9358dc725422687b"><i
+                                class="fa-solid fa-headphones-alt"></i> Âm thanh</a>
                     </li>
 
                     <li>
-                        <a href="#">Đồng hồ</a>
+                        <a href="/v1/sites/features?categoryID=66eb18c79358dc725422688d"><i
+                                class="fa-regular fa-clock"></i> Đồng hồ</a>
                     </li>
 
                     <li>
-                        <a href="#">Phụ kiện</a>
-                    </li>
-
-                    <li>
-                        <a href="#">PC, Màn hình, máy in</a>
+                        <a href="/v1/sites/features?categoryID=66eae9a79358dc725422687c"><i
+                                class="fa-solid fa-computer-mouse"></i></i>Chuột máy tính</a>
                     </li>
 
 
@@ -167,145 +116,202 @@
     </header>
 
     <section class="cart">
-        <form action="#">
+        <form action="#" style="position: relative;">
 
             <div class="opc-sidebar">
                 <h4>Đơn hàng</h4>
-        
-                <!-- Hiển thị tổng cộng -->
-                <p class="totl">Tổng cộng: <%= totalAmount %></p>
-        
+
+                <p class="totl" id="totalAmount">Tổng cộng: <%= totalAmount %>
+                </p>
+
                 <div class="opc-box">
                     <div class="count-items">
-                        <!-- Hiển thị số lượng sản phẩm trong giỏ hàng -->
-                        <p class="cont-p"> <span class="count-item-number"><%= totalItems %></span> sản phẩm trong giỏ hàng</p>
+                        <p class="cont-p"> <span class="count-item-number">
+                                <%= totalItems %>
+                            </span> sản phẩm trong giỏ hàng</p>
                     </div>
-        
-                    <!-- Lặp qua từng sản phẩm trong giỏ hàng -->
-                    <% if (cartItems.length > 0) { %>
-                        <% cartItems.forEach(item => { %>
-                        <div class="item">
-                            <!-- Sử dụng hình ảnh sản phẩm -->
-                            <img src="<%= item.imageDefault || '/publics/assets/img/default-product.jpg' %>" alt="<%= item.tenSanPham %>">
-                            <div class="info-item">
-                                <!-- Hiển thị tên sản phẩm -->
-                                <p class="name-item"><%= item.tenSanPham %></p>
-                                <!-- Hiển thị giá sản phẩm -->
-                                <p class="price-item">Giá: <span><%= item.gia %></span></p>
-                                <!-- Hiển thị số lượng -->
-                                <p class="count">Số lượng: <span><%= item.soLuong %></span></p>
+
+                    <% if (cartItems.length> 0) { %>
+                        <% cartItems.forEach(item=> { %>
+                            <div class="item">
+                                <img src="<%= item.imageUrl %>" alt="<%= item.tenSanPham %>">
+                                <div class="info-item">
+                                    <p class="name-item">
+                                        <%= item.tenSanPham %>
+                                    </p>
+                                    <p class="price-item">Giá: <span>
+                                            <%= item.gia %>
+                                        </span></p>
+                                    <p class="count">Số lượng: <span>
+                                            <%= item.soLuong %>
+                                        </span></p>
+                                </div>
                             </div>
-                        </div>
-                        <% }); %>
-                    <% } else { %>
-                        <p>Không có sản phẩm nào trong giỏ hàng.</p>
-                    <% } %>
-                </div>
-        
-                <div class="btn-div">
-                    <a href="#info-user" class="btn">Hoàn tất đơn hàng</a>
-                </div>
-            </div>
-            
-            <div class="row contanier">
-                <div class="coupon-all">
-                    <div class="coupon">
-                        <input placeholder="Nhập mã giảm giá..." type="text">
-                        <button>Dùng mã</button>
-                    </div>
-                    <div class="coupon2">
-                        <button>Cập nhật</button>
-                    </div>
+                            <% }); %>
+                                <% } else { %>
+                                    <p>Không có sản phẩm nào trong giỏ hàng.</p>
+                                    <% } %>
                 </div>
             </div>
 
             <div id="info-user" class="cont-box-info">
-
                 <div class="info-order box brd-box">
                     <h4> <i class="fa-solid fa-list"></i> Nhập thông tin và địa chỉ của bạn </h4>
                     <div class="info pad-box">
-                        <h5>Sử dụng địa chỉ này</h5>
-                        <div class="info-account">
-                            <input checked="checked" type="radio">
-                            <span>
-                                Đường Hoa, 
-                                Hải Phòng, 
-                                Việt Nam
-                            </span>
-                        </div>
-
                         <div class="new-info">
-                            <div class="radio-inp">
-                                <input type="radio">
-                                <span>Tôi muốn dùng địa chỉ mới</span>
-                            </div>
-
                             <div class="show-inp-new-info">
-                                <form action="">
-                                    <div class="div-inp">
-                                        <i class="fa-solid fa-user-pen"></i>
-                                        <input type="text" placeholder="Tên">
-                                    </div>
-
-                                    <div class="div-inp">
-                                        <i class="fa-regular fa-building"></i>
-                                        <input type="text" placeholder="Công ty">
-                                    </div>
-
-                                    <div class="div-inp">
-                                        <i class="fa-solid fa-location-dot"></i>
-                                        <input type="text" placeholder="Địa chỉ 1:">
-                                    </div>
-                                    <div class="div-inp">
-                                        <i class="fa-solid fa-map-location-dot"></i>
-                                        <input type="text" placeholder="Thành phố:">
-                                    </div>
-                                </form>
+                                <div class="div-inp">
+                                    <i class="fa-solid fa-user-pen"></i>
+                                    <input type="text" id="tenNguoiNhan" placeholder="Tên">
+                                </div>
+                                <div class="div-inp">
+                                    <i class="fa-solid fa-phone"></i>
+                                    <input type="text" id="soDienThoai" placeholder="Số điện thoại">
+                                </div>
+                                <div class="div-inp">
+                                    <i class="fa-solid fa-map-marked-alt"></i>
+                                    <input type="text" id="tinh" placeholder="Tỉnh/Huyện/Xã">
+                                </div>
+                                <div class="div-inp">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <input type="text" id="diaChiChiTiet" placeholder="Địa chỉ chi tiết">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="box">
-                    <div class="delvr-box brd-box">
-                        <h4><i class="fa-solid fa-truck-fast"></i> Chọn phương thức vận chuyển</h4>
-
-                        <div class="info box pad-box">
-                            <div class="delvr-info">
-                                <input type="radio">
-                                <span>Giao hàng tiêu chuẩn</span>
-                            </div>
-                            <div class="delvr-info">
-                                <input checked="checked" type="radio">
-                                <span>Miễn phí vận chuyển</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="delvr-box brd-box">
-                        <h4><i class="fa-solid fa-money-check-dollar"></i> Chọn phương thức thanh toán</h4>
-
-                        <div class="info box pad-box">
-                            <div class="delvr-info">
-                                <input type="radio">
-                                <span>Thẻ tín dụng</span>
-                            </div>
-                            <div class="delvr-info">
-                                <input checked="checked" type="radio">
-                                <span>Chuyển khoản ngân hàng</span>
-                            </div>
-                        </div>
-                    </div>
+                <div class="payment-methods">
+                    <div class="payment-option" data-method="bank-transfer" id="cktt">Chuyển khoản ngân hàng</div>
+                    <div class="payment-option" data-method="cash" id="ttknh">Thanh toán sau khi nhận hàng</div>
                 </div>
 
+                <div id="qr-code">
+                    <h2>Quét QR Code để thanh toán</h2>
+                    <img src="" alt="QR Code" id="qr-img">
+                </div>
+            </div>
+
+            <div class="btn-div" style="text-align: center; margin-top: 30px;">
+                <button type="button" id="completeOrder" style="background: red; color: #fff" class="btn">Hoàn tất đơn
+                    hàng</button>
             </div>
         </form>
     </section>
+
+    <div class="back-top">
+        <a href="#">Quay lại trên cùng</a>
+    </div>
 
     <!-- Link JS của Swiper -->
     <script src="/publics/swiperJs/swiper-bundle.min.js"></script>
     <!-- File JavaScript -->
     <script src="/publics/assets/js/script.js"></script>
+
+
+    <script src="/publics/js/js/jquery.min.js"></script>
+    <script src="/publics/js/js/bootstrap.min.js"></script>
+    <script src="/publics/js/js/icheck.min.js"></script>
+
+    <script>
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        document.getElementById('completeOrder').addEventListener('click', function () {
+            const userID = getCookie('userID');
+            const gioHangID = getCookie('gioHangID');
+            
+            const hinhThucThanhToan = document.getElementById('cktt').value;
+            const trangThaiDonHang = "66ed3f4d627473063b5bb04c";
+            const thoiGianGiaoHangDuKien = new Date().toISOString();
+
+            const diaChiGiaoHang = {
+                tenNguoiNhan: document.getElementById('tenNguoiNhan').value,
+                soDienThoai: document.getElementById('soDienThoai').value,
+                tinh: document.getElementById('tinh').value,
+                huyen: "",
+                xa: "",
+                diaChiChiTiet: document.getElementById('diaChiChiTiet').value
+            };
+
+            const orderData = {
+                userID,
+                gioHangID,
+                hinhThucThanhToan,
+                trangThaiDonHang,
+                thoiGianGiaoHangDuKien,
+                diaChiGiaoHang
+            };
+
+            fetch(`http://localhost:3300/v1/sites/order/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(orderData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Đơn hàng đã được tạo thành công!');
+                    } else {
+                        alert('Có lỗi xảy ra: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Có lỗi xảy ra khi tạo đơn hàng.');
+                });
+        });
+
+        $(document).ready(function () {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_flat-blue',
+                radioClass: 'iradio_flat-blue'
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const options = document.querySelectorAll('.payment-option');
+            const qrCodeDiv = document.getElementById('qr-code');
+            const qrImg = document.getElementById('qr-img');
+            const totalAmountText = document.getElementById('totalAmount').textContent;
+
+            const totalAmount = totalAmountText
+                .replace('Tổng cộng: ', '')
+                .replace(/\./g, '')
+                .replace('₫', '')
+                .trim();
+
+            const totalAmountNumber = parseFloat(totalAmount);
+
+            const encodedTotalAmount = encodeURIComponent(totalAmountNumber);
+
+            console.log(encodedTotalAmount)
+
+            options.forEach(option => {
+                option.addEventListener('click', () => {
+                    options.forEach(o => o.classList.remove('selected'));
+                    option.classList.add('selected');
+
+                    const gioHangID = '<%= encodeURIComponent(gioHangID) %>';
+
+                    if (option.dataset.method === 'bank-transfer') {
+                        qrCodeDiv.style.display = 'block';
+                        qrImg.src = `https://img.vietqr.io/image/ICB-109875941614-compact.png?amount=${encodedTotalAmount}&addInfo=Thanh%20toan%20don%20hang%20${encodeURIComponent(gioHangID)}&accountName=109875941614`;
+                    } else {
+                        qrCodeDiv.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+    </script>
+
 </body>
 
 </html>

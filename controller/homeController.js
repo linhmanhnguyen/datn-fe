@@ -1,6 +1,8 @@
 import axios from "axios";
 import { CONSTANTS } from "../utils/constants.js";
 
+import CartController from './myCart.js'
+
 class HomeController {
 
     static async getProductsByCategoryID(categoryID) {
@@ -69,21 +71,20 @@ class HomeController {
                 watches: '66eb18c79358dc725422688d',
             };
 
-            const [laptopsResult, phonesResult, watchesResult, productsResult] = await Promise.all([
+            const [laptopsResult, phonesResult, watchesResult, productsResult, soSanPhamTrongGioResult] = await Promise.all([
                 HomeController.getProductsByCategoryID(categoryIDs.laptops),
                 HomeController.getProductsByCategoryID(categoryIDs.phones),
                 HomeController.getProductsByCategoryID(categoryIDs.watches),
-                HomeController.danhSachSanPhamCoLuotGiamGiaCaoNhat()
+                HomeController.danhSachSanPhamCoLuotGiamGiaCaoNhat(),
+                CartController.getCartByCartID(req.cookies.gioHangID)
             ]);
-
-
-
 
             res.render('home-admin', { 
                 laptops: laptopsResult.success ? laptopsResult.data : [],
                 phones: phonesResult.success ? phonesResult.data : [],
                 watches: watchesResult.success ? watchesResult.data : [],
-                products: productsResult.success ? productsResult.data : {}
+                products: productsResult.success ? productsResult.data : [],
+                soSanPhamTrongGio: soSanPhamTrongGioResult.success ? soSanPhamTrongGioResult.data.totalItems : []
             });
 
         } catch (error) {

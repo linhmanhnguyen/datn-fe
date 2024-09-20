@@ -24,7 +24,7 @@
                     </div>
                     <div class="div">
                         <h5>Email</h5>
-                        <input type="text" class="input" name="email" id="email">
+                        <input type="text" class="input" name="email" id="email" required>
                     </div>
                 </div>
                 <div class="input-div pass">
@@ -33,7 +33,7 @@
                     </div>
                     <div class="div">
                         <h5>Password</h5>
-                        <input type="password" class="input" name="password" id="password" autocomplete="off">
+                        <input type="password" class="input" name="password" id="password" autocomplete="off" required>
                     </div>
                 </div>
                 <a href="#">Forgot Password?</a>
@@ -41,13 +41,68 @@
 
                 <div class="register-link">
                     <p>Don't have an account?</p>
-                    <a href="/auth/register" class="btn btn-register">Register</a>
+                    <a href="/v1/sites/auth/register" class="btn btn-register">Register</a>
                 </div>
             </form>
         </div>
     </div>
 
-    <script type="text/javascript" src="/publics/js/auth.js"></script>
-    <script type="module" src="/publics/js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginButton = document.getElementById('loginButton');
+            const loginForm = document.getElementById('loginForm');
+            
+            // Function to set a cookie
+            function setCookie(name, value, days) {
+                let expires = "";
+                if (days) {
+                    const date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    expires = "; expires=" + date.toUTCString();
+                }
+                document.cookie = name + "=" + (value || "") + expires + "; path=/";
+            }
+    
+            function handleLogin() {
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+    
+                fetch('http://localhost:3300/v1/sites/auth/login', { 
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password }),
+                })
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.isSuccess) {
+                        setCookie('authToken', data.data.token, 7); 
+                        setCookie('userID', data.data.userID, 7); 
+                        setCookie('gioHangID', data.data.gioHangID, 7);
+    
+                        window.location.href = '/v1/sites/'; 
+                    } else {
+                        alert(data.message || 'Login failed');
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+            }
+    
+            loginButton.addEventListener('click', handleLogin);
+    
+            loginForm.addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault(); 
+                    handleLogin();
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>
