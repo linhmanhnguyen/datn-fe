@@ -36,7 +36,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="/v1/admin/">
                             <span class="las la-user-alt"></span>
                             <small>Profile</small>
                         </a>
@@ -215,18 +215,19 @@
                                                         style="background-image: url(/publics/assets/img/dashboard/1.jpeg)">
                                                     </div>
                                                     <div class="client-info">
-                                                        <% if (order.gioHangID && order.gioHangID.danhSachSanPham && order.gioHangID.danhSachSanPham.length > 0) { %>
+                                                        <% if (order.gioHangID && order.gioHangID.danhSachSanPham &&
+                                                            order.gioHangID.danhSachSanPham.length> 0) { %>
                                                             <h4>
                                                                 <%= order.userID.userInfo_id.name %>
                                                             </h4>
-                                                        <% } else { %>
-                                                            <h4></h4>
-                                                        <% } %>
-                                                        <small>
-                                                            <%= order.userID.email %>
-                                                        </small>
+                                                            <% } else { %>
+                                                                <h4></h4>
+                                                                <% } %>
+                                                                    <small>
+                                                                        <%= order.userID.email %>
+                                                                    </small>
                                                     </div>
-                                                    
+
                                                 </div>
                                             </td>
                                             <td>
@@ -239,29 +240,37 @@
                                             <td><span class="paid">
                                                     <%= order.trangThaiDonHang.tenTrangThai %>
                                                 </span></td>
+
                                             <td>
-                                                <button type="button" onclick="toggleUpdateForm('<%= order._id %>')"
-                                                    class="icon-button">
+                                                <button type="button" class="order-action-btn edit-order-btn"
+                                                    onclick="toggleUpdateForm('<%= order._id %>')" class="icon-button">
                                                     <i class="fa-regular fa-pen-to-square" title="Sửa đơn hàng"></i>
                                                 </button>
-                                                <button type="button" onclick="deleteOrder('<%= order._id %>')"
-                                                    class="icon-button">
+                                                <button type="button" class="order-action-btn delete-order-btn"
+                                                    onclick="deleteOrder('<%= order._id %>')" class="icon-button">
                                                     <i class="fa-solid fa-trash" title="Xóa đơn hàng"></i>
                                                 </button>
                                             </td>
                                         </tr>
                                         <tr id="update-form-<%= order._id %>" style="display: none;">
-                                            <td colspan="6">
-                                                <select onchange="updateOrderStatus(this.value, '<%= order._id %>')">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="update-form-order">
+                                                <select class="select-order-status"
+                                                    onchange="updateOrderStatus(this.value, '<%= order._id %>')">
                                                     <% status.forEach(function(data) { %>
                                                         <option value="<%= data._id %>">
                                                             <%= data.tenTrangThai %>
                                                         </option>
                                                         <% }); %>
                                                 </select>
-                                                <button type="button"
+                                            </td>
+                                            <td class="edit-form-action-cell">
+                                                <button type="button" class="apply-order-btn"
                                                     onclick="saveUpdate('<%= order._id %>')">Lưu</button>
-                                                <button type="button"
+                                                <button type="button" class="cancel-order-btn"
                                                     onclick="toggleUpdateForm('<%= order._id %>')">Hủy</button>
                                             </td>
                                         </tr>

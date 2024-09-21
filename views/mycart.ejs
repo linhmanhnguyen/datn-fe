@@ -45,7 +45,7 @@
 
         <div class="header-top">
             <div class="contanier">
-                <p>Chào mừng bạn đến với Cửa hàng XPrim</p>
+                <p></p>
                 <div class="link-top-heder">
                     <a href="#">My Account</a>
                     <a href="#">My Wishlist</a>
@@ -224,7 +224,7 @@
         document.getElementById('completeOrder').addEventListener('click', function () {
             const userID = getCookie('userID');
             const gioHangID = getCookie('gioHangID');
-            
+
             const hinhThucThanhToan = document.getElementById('cktt').value;
             const trangThaiDonHang = "66ed3f4d627473063b5bb04c";
             const thoiGianGiaoHangDuKien = new Date().toISOString();
@@ -258,6 +258,33 @@
                 .then(data => {
                     if (data.success) {
                         alert('Đơn hàng đã được tạo thành công!');
+
+                        const notificationData = {
+                            donHangID: data.data._id,
+                            nguoiDatHang: data.data.userID.email,
+                            ngayDatHang: data.data.ngayDatHang
+                        };
+
+                        fetch('http://localhost:3300/v1/sites/notification', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(notificationData)
+                        })
+                            .then(notificationResponse => notificationResponse.json())
+                            .then(notificationData => {
+                                if (notificationData.success) {
+                                    alert('Thông báo đã được gửi thành công!');
+                                } else {
+                                    alert('Có lỗi xảy ra khi gửi thông báo: ' + notificationData.message);
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                alert('Có lỗi xảy ra khi gửi thông báo.');
+                            });
+
                     } else {
                         alert('Có lỗi xảy ra: ' + data.message);
                     }

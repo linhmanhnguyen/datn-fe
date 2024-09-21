@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <title>Modern Admin Dashboard</title>
+    <link rel="stylesheet" href="/publics/assets/styles/dashboard.css">
+    <link rel="stylesheet"
+        href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+    <style>
+        /* Modal styles */
+        .product-modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .product-modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .product-modal-close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .product-modal-close:hover,
+        .product-modal-close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .product-modal label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        .product-modal input,
+        .product-modal textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .product-modal button {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .product-modal button:hover {
+            background-color: #218838;
+        }
+
+        /* Table styles */
+        #technicalSpecsTable {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #technicalSpecsTable th,
+        #technicalSpecsTable td {
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+
+        #technicalSpecsTable th {
+            background-color: #f2f2f2;
+        }
+    </style>
+
+</head>
+
+<body>
+    <input type="checkbox" id="menu-toggle">
+    <div class="sidebar">
+        <div class="side-header">
+            <h3>M<span>odern</span></h3>
+        </div>
+
+        <div class="side-content">
+            <div class="profile">
+                <div class="profile-img bg-img" style="background-image: url(/publics/assets/img/dashboard/3.jpeg)">
+                </div>
+                <h4>David Green</h4>
+                <small>Art Director</small>
+            </div>
+
+            <div class="side-menu">
+                <ul>
+                    <li>
+                        <a href="" class="active">
+                            <span class="las la-home"></span>
+                            <small>Dashboard</small>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="las la-user-alt"></span>
+                            <small>Profile</small>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="las la-envelope"></span>
+                            <small>Mailbox</small>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="las la-clipboard-list"></span>
+                            <small>Projects</small>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="las la-shopping-cart"></span>
+                            <small>Orders</small>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <span class="las la-tasks"></span>
+                            <small>Tasks</small>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+
+        <header>
+            <div class="header-content">
+                <label for="menu-toggle">
+                    <span class="las la-bars"></span>
+                </label>
+
+                <div class="header-menu">
+                    <label for="">
+                        <span class="las la-search"></span>
+                    </label>
+
+                    <div class="notify-icon">
+                        <span class="las la-envelope"></span>
+                        <span class="notify">4</span>
+                    </div>
+
+                    <div class="notify-icon">
+                        <span class="las la-bell"></span>
+                        <span class="notify">3</span>
+                    </div>
+
+                    <div class="user">
+                        <div class="bg-img" style="background-image: url(/publics/assets/img/dashboard/1.jpeg)"></div>
+
+                        <span class="las la-power-off"></span>
+                        <span>Logout</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+        <main>
+
+            <div class="page-header">
+                <h1>Dashboard</h1>
+                <small>Home / Dashboard</small>
+            </div>
+
+            <div class="page-content">
+
+                <div class="analytics">
+
+                    <div class="card">
+                        <div class="card-head">
+                            <h2>107,200</h2>
+                            <span class="las la-user-friends"></span>
+                        </div>
+                        <div class="card-progress">
+                            <small>User activity this month</small>
+                            <div class="card-indicator">
+                                <div class="indicator one" style="width: 60%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-head">
+                            <h2>340,230</h2>
+                            <span class="las la-eye"></span>
+                        </div>
+                        <div class="card-progress">
+                            <small>Page views</small>
+                            <div class="card-indicator">
+                                <div class="indicator two" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-head">
+                            <h2>$653,200</h2>
+                            <span class="las la-shopping-cart"></span>
+                        </div>
+                        <div class="card-progress">
+                            <small>Monthly revenue growth</small>
+                            <div class="card-indicator">
+                                <div class="indicator three" style="width: 65%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-head">
+                            <h2>47,500</h2>
+                            <span class="las la-envelope"></span>
+                        </div>
+                        <div class="card-progress">
+                            <small>New E-mails received</small>
+                            <div class="card-indicator">
+                                <div class="indicator four" style="width: 90%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="records table-responsive">
+
+                    <div class="record-header">
+                        <div class="add">
+                            <button id="productOpenModal">Thêm sản phẩm<button>
+                        </div>
+
+                        <!-- The Modal -->
+                        <div id="productModal" class="product-modal">
+                            <div class="product-modal-content">
+                                <span class="product-modal-close">&times;</span>
+                                <h2>Thông Tin Sản Phẩm</h2>
+                                <form id="productForm">
+                                    <label for="tenSanPham">Tên Sản Phẩm</label>
+                                    <input type="text" id="tenSanPham" name="tenSanPham" required>
+
+                                    <label for="phienBan">Phiên Bản</label>
+                                    <input type="text" id="phienBan" name="phienBan" required>
+
+                                    <label for="giaBan">Giá Bán</label>
+                                    <input type="number" id="giaBan" name="giaBan" required>
+
+                                    <label for="sale">Khuyến Mãi</label>
+                                    <input type="text" id="sale" name="sale">
+
+                                    <label for="donVi">Đơn Vị</label>
+                                    <input type="text" id="donVi" name="donVi">
+
+                                    <label for="mauSac">Màu Sắc</label>
+                                    <input type="text" id="mauSac" name="mauSac" required>
+
+                                    <h3>Khuyến Mãi</h3>
+                                    <div id="promotionContainer">
+                                        <div class="promotion">
+                                            <input type="text" name="khuyenMaiChiTiet[]"
+                                                placeholder="Chi Tiết Khuyến Mãi" required>
+                                            <input type="text" name="khuyenMaiUrl[]" placeholder="URL" />
+                                            <button type="button" class="removePromotion">Xóa</button>
+                                        </div>
+                                    </div>
+                                    <button type="button" id="addPromotion">Thêm Khuyến Mãi</button>
+
+                                    <h3>Thông Tin Sản Phẩm</h3>
+                                    <textarea id="thongTinSanPham" name="thongTinSanPham" rows="4"
+                                        placeholder="Thông Tin Sản Phẩm"></textarea>
+
+                                    <h3>Thông Số Kỹ Thuật</h3>
+                                    <div id="specGroupContainer">
+                                        <div class="specGroup">
+                                            <h4>Loại Thông Số</h4>
+                                            <input type="text" class="specType" placeholder="Loại Thông Số" required>
+                                            <table class="technicalSpecsTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Tên Thông Số</th>
+                                                        <th>Chi Tiết</th>
+                                                        <th>Hành Động</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td><input type="text" name="specName[]"
+                                                                placeholder="Tên Thông Số" required></td>
+                                                        <td><input type="text" name="specValue[]" placeholder="Chi Tiết"
+                                                                required></td>
+                                                        <td><button type="button" class="removeRow">Xóa</button></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <button type="button" class="addSpecRow">Thêm Thông Số</button>
+                                        </div>
+                                    </div>
+                                    <button type="button" id="addSpecGroup">Thêm Loại Thông Số</button>
+
+                                    <label for="loaiSanPhamID">Loại Sản Phẩm</label>
+                                    <select id="loaiSanPhamID" name="loaiSanPhamID" required>
+                                        <option value="66d9144faf7f7d7628a1965d">Laptop</option>
+                                        <option value="66eae9759358dc725422687a">Điện thoại</option>
+                                        <option value="66eae98b9358dc725422687b">Âm thanh</option>
+                                        <option value="66eae9a79358dc725422687c">Chuột máy tính</option>
+                                        <option value="66eb18c79358dc725422688d">Đồng hồ</option>
+                                    </select>
+                                    
+
+                                    <label for="nhanHieu">Nhãn Hiệu</label>
+                                    <input type="text" id="nhanHieu" name="nhanHieu" required>
+
+                                    <label for="imgDefault">Hình Ảnh Sản Phẩm</label>
+                                    <input type="file" id="imgDefault" name="imgDefault" accept="image/*" required>
+
+                                    <label for="imgHover">Hình Ảnh Khác</label>
+                                    <input type="file" id="imgHover" name="imgHover" accept="image/*" required>
+
+
+                                    <button type="submit">Lưu Sản Phẩm</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <script>
+                            // Open modal
+                            document.getElementById("productOpenModal").onclick = function () {
+                                document.getElementById("productModal").style.display = "block";
+                            }
+
+                            // Close modal
+                            document.getElementsByClassName("product-modal-close")[0].onclick = function () {
+                                document.getElementById("productModal").style.display = "none";
+                            }
+
+                            // Close modal when clicking outside of it
+                            window.onclick = function (event) {
+                                if (event.target == document.getElementById("productModal")) {
+                                    document.getElementById("productModal").style.display = "none";
+                                }
+                            }
+
+                            // Add new row to technical specs table within a specific group
+                            document.addEventListener("click", function (event) {
+                                if (event.target.classList.contains("addSpecRow")) {
+                                    const specGroup = event.target.closest(".specGroup");
+                                    const tableBody = specGroup.querySelector(".technicalSpecsTable tbody");
+                                    const newRow = tableBody.insertRow();
+
+                                    const cell1 = newRow.insertCell(0);
+                                    const cell2 = newRow.insertCell(1);
+                                    const cell3 = newRow.insertCell(2);
+
+                                    cell1.innerHTML = '<input type="text" name="specName[]" placeholder="Tên Thông Số" required>';
+                                    cell2.innerHTML = '<input type="text" name="specValue[]" placeholder="Chi Tiết" required>';
+                                    cell3.innerHTML = '<button type="button" class="removeRow">Xóa</button>';
+                                }
+                            });
+
+                            // Remove row from technical specs table
+                            document.addEventListener("click", function (event) {
+                                if (event.target.classList.contains("removeRow")) {
+                                    const row = event.target.closest("tr");
+                                    row.parentNode.removeChild(row);
+                                }
+                            });
+
+                            // Add new spec group
+                            document.getElementById("addSpecGroup").onclick = function () {
+                                const specGroupContainer = document.getElementById("specGroupContainer");
+                                const newSpecGroup = document.createElement("div");
+                                newSpecGroup.classList.add("specGroup");
+
+                                newSpecGroup.innerHTML = `
+                                    <h4>Loại Thông Số</h4>
+                                    <input type="text" class="specType" placeholder="Loại Thông Số" required>
+                                    <table class="technicalSpecsTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Tên Thông Số</th>
+                                                <th>Chi Tiết</th>
+                                                <th>Hành Động</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="text" name="specName[]" placeholder="Tên Thông Số" required></td>
+                                                <td><input type="text" name="specValue[]" placeholder="Chi Tiết" required></td>
+                                                <td><button type="button" class="removeRow">Xóa</button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <button type="button" class="addSpecRow">Thêm Thông Số</button>
+                                `;
+                                specGroupContainer.appendChild(newSpecGroup);
+                            };
+
+                            // Add new promotion
+                            document.getElementById("addPromotion").onclick = function () {
+                                const promotionContainer = document.getElementById("promotionContainer");
+                                const newPromotion = document.createElement("div");
+                                newPromotion.classList.add("promotion");
+
+                                newPromotion.innerHTML = `
+                                    <input type="text" name="khuyenMaiChiTiet[]" placeholder="Chi Tiết Khuyến Mãi" required>
+                                    <input type="text" name="khuyenMaiUrl[]" placeholder="URL" />
+                                    <button type="button" class="removePromotion">Xóa</button>
+                                `;
+                                promotionContainer.appendChild(newPromotion);
+                            };
+
+                            // Remove promotion
+                            document.addEventListener("click", function (event) {
+                                if (event.target.classList.contains("removePromotion")) {
+                                    const promotion = event.target.closest(".promotion");
+                                    promotion.parentNode.removeChild(promotion);
+                                }
+                            });
+
+                            // Submit form
+                            document.getElementById("productForm").onsubmit = function (event) {
+                                event.preventDefault();
+                                const formData = new FormData(event.target);
+                                const data = {};
+
+                                data["danhGia"] = 0;
+                                data["luotBanHang"] = 0;
+                                data["tinhTrangHang"] = "Còn hàng";
+
+                                formData.forEach((value, key) => {
+                                    if (!data[key]) {
+                                        data[key] = [];
+                                    }
+                                    data[key].push(value);
+                                });
+
+                                console.log(JSON.stringify(data)); // Xử lý dữ liệu ở đây
+                            };
+                        </script>
+
+
+                        <div class="browse">
+                            <input type="search" placeholder="Search" class="record-search">
+                            <select name="" id="">
+                                <option value="">Status</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <table width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Mã sản phẩm</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Loại sản phẩm</th>
+                                    <th>Giá bán</th>
+                                    <th>Tình trạng hàng</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (data && data.length> 0) { %>
+                                    <% data.forEach(function(product) { %>
+                                        <tr>
+                                            <td>
+                                                <%= product._id %>
+                                            </td>
+                                            <td>
+                                                <div class="client">
+                                                    <div class="client-img bg-img"
+                                                        style="background-image: url('<%= product.imgDefault %>')">
+                                                    </div>
+                                                    <div class="client-info">
+                                                        <h4>
+                                                            <%= product.tenSanPham %>
+                                                        </h4>
+                                                        <small>
+                                                            <%= product.phienBan %>
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <%= product["Nhãn hiệu"] %>
+                                            </td>
+                                            <td>
+                                                <%= product.giaBan %> VND
+                                            </td>
+                                            <td>
+                                                <span class="paid">
+                                                    <%= product.tinhTrangHang %>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="order-action-btn edit-order-btn"
+                                                    onclick="toggleUpdateForm('<%= product._id %>')"
+                                                    class="icon-button">
+                                                    <i class="fa-regular fa-pen-to-square" title="Sửa sản phẩm"></i>
+                                                </button>
+                                                <button type="button" class="order-action-btn delete-order-btn"
+                                                    onclick="deleteOrder('<%= product._id %>')" class="icon-button">
+                                                    <i class="fa-solid fa-trash" title="Xóa sản phẩm"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <% }); %>
+                                            <% } else { %>
+                                                <tr>
+                                                    <td colspan="6">Không có sản phẩm nào.</td>
+                                                </tr>
+                                                <% } %>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <script type="text/javascript" src="/publics/js/dashboard.js"></script>
+
+</body>
+
+</html>

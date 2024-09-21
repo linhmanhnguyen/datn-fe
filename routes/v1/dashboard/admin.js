@@ -6,9 +6,15 @@ import DashboardController from '../../../controller/dashboardController.js';
 const adminRouter = express.Router();
 
 adminRouter.get(
-  CONSTANTS.API_TRANG_CHU,
+  "/orders",
   DashboardController.dashboardRender
 );
+
+adminRouter.get(
+  "/products",
+  DashboardController.productRender
+);
+
 
 
 export default adminRouter;
