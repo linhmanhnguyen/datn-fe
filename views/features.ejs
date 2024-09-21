@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TOPICO</title>
+    <title>TECHSTORE</title>
 
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="/publics/swiperJs/swiper-bundle.min.css" />
@@ -16,26 +16,38 @@
 
     <!-- Link File CSS -->
     <link rel="stylesheet" href="/publics/assets/styles/style.css">
+
+    <script src="/publics/js/authCheck.js" defer></script>
 </head>
 
 <body class="menu-side-in-bag feature-bag">
-    
+
     <header>
         <div class="header-top">
-            <div class="contanier">
+            <div class="container">
                 <p></p>
-                <div class="link-top-heder">
-                    <a href="#">My Account</a>
-                    <a href="#">My Wishlist</a>
-                    <a href="/v1/sites/auth/login">Sign In</a>
-                    <a href="#">Compare</a>
+                <div class="link-top-header">
+                    <% if (isAuthenticated) { %>
+                         <a href="/v1/sites/" id="authLink">Đăng xuất</a>
+                    <% } else { %>
+                        <a href="/v1/sites/auth/login" id="authLink">Đăng nhập</a>
+                    <% } %>
                 </div>
             </div>
         </div>
 
+        <script>
+    document.getElementById("authLink").addEventListener("click", function() {
+        if (isAuthenticated) {
+            document.cookie = "userID=; gioHangID=; token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            window.location.href = "/v1/sites/auth/login"; // Chuyển hướng về trang đăng nhập
+        }
+    });
+</script> 
+
         <div class="header-info">
             <div class="contanier">
-                <img src="/publics/assets/img/home/logo.png" alt="">
+               <h2 style="font-size: 20px;">TECHSTORE</h2>
 
                 <div class="search-bar">
                     <form action="">
@@ -46,7 +58,7 @@
                 <div class="card">
                     <a href="/v1/sites/my-cart/">
                         <i class="fa-solid fa-bag-shopping"></i>
-                        <span class="count-in-card">2</span>
+                        <span class="count-in-card"> <%= soSanPhamTrongGio %> </span>
                     </a>
                 </div>
             </div>
@@ -57,29 +69,34 @@
                 <i id="open-side" class="fa-solid fa-bars"></i>
                 <ul class="nav-links">
                     <li>
-                        <a href="/v1/sites/features?categoryID=66d9144faf7f7d7628a1965d"><i class="fa-solid fa-laptop"></i>Laptop</a>
+                        <a href="/v1/sites/features?categoryID=66d9144faf7f7d7628a1965d"><i
+                                class="fa-solid fa-laptop"></i>Laptop</a>
                     </li>
 
                     <li>
-                        <a href="/v1/sites/features?categoryID=66eae9759358dc725422687a"><i class="fa-solid fa-mobile-alt"></i> Điện thoại, Tablet</a>
+                        <a href="/v1/sites/features?categoryID=66eae9759358dc725422687a"><i
+                                class="fa-solid fa-mobile-alt"></i> Điện thoại, Tablet</a>
                     </li>
 
                     <li>
-                        <a href="/v1/sites/features?categoryID=66eae98b9358dc725422687b"><i class="fa-solid fa-headphones-alt"></i> Âm thanh</a>
+                        <a href="/v1/sites/features?categoryID=66eae98b9358dc725422687b"><i
+                                class="fa-solid fa-headphones-alt"></i> Âm thanh</a>
                     </li>
 
                     <li>
-                        <a href="/v1/sites/features?categoryID=66eb18c79358dc725422688d"><i class="fa-regular fa-clock"></i> Đồng hồ</a>
+                        <a href="/v1/sites/features?categoryID=66eb18c79358dc725422688d"><i
+                                class="fa-regular fa-clock"></i> Đồng hồ</a>
                     </li>
 
                     <li>
-                        <a href="/v1/sites/features?categoryID=66eae9a79358dc725422687c"><i class="fa-solid fa-computer-mouse"></i></i>Chuột máy tính</a>
+                        <a href="/v1/sites/features?categoryID=66eae9a79358dc725422687c"><i
+                                class="fa-solid fa-computer-mouse"></i></i>Chuột máy tính</a>
                     </li>
                 </ul>
                 <a href="sign-up-page.html" class="sign-in-btn"><i class="fa-solid fa-user-plus"></i> Đăng ký</a>
             </div>
         </div>
-        
+
 
     </header>
 
@@ -131,7 +148,7 @@
             <div class="btn-page">
                 <ul>
                     <li>
-                        </li>
+                    </li>
                     <li class="active">1</li>
                     <li>2</li>
                     <li>3</li>
@@ -141,24 +158,10 @@
         </div>
     </section>
 
-    <div class="newsletter">
-        <div class="contanier">
-            <div class="subscribe-content">
-                <img src="/publics/assets/img/home/icon_email.png" alt="">
-                <div class="text">
-                    <h4>Đăng ký để nhận tin tức mới nhất</h4>
-                    <p>Đăng ký email để nhận tin tức mới nhất và sản phẩm mới</p>
-                    <span></span>
-                </div>
-            </div>
-            <div class="subscribe-form">
-                <form action="">
-                    <input type="search" placeholder="Nhập email của bạn để đăng ký">
-                    <button class="btn-srch">Đăng ký</button>
-                </form>
-            </div>
-        </div>
-    </div>  
+    <div class="back-top"></div>
+        <a href="#">Quay lại trên cùng</a>
+    </div>
+    
     <script type="text/javascript" src="/publics/js/feature.js"></script>
 </body>
 

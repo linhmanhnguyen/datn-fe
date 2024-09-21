@@ -79,11 +79,17 @@
                 })
                 .then(data => {
                     if (data.isSuccess) {
+                        // Set cookies for user data
                         setCookie('authToken', data.data.token, 7); 
                         setCookie('userID', data.data.userID, 7); 
                         setCookie('gioHangID', data.data.gioHangID, 7);
     
-                        window.location.href = '/v1/sites/'; 
+                        // Redirect based on role
+                        if (data.data.role === 'admin') {
+                            window.location.href = '/v1/admin/products'; // Redirect to product dashboard for admin
+                        } else {
+                            window.location.href = '/v1/sites/'; // Redirect to home for non-admin users
+                        }
                     } else {
                         alert(data.message || 'Login failed');
                     }
@@ -103,6 +109,7 @@
             });
         });
     </script>
+    
 
 </body>
 </html>

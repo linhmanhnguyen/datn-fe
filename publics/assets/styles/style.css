@@ -2232,14 +2232,55 @@ footer .bottom-footer .contanier p span {
 }
 
 #qr-code {
-    display: none;
+    /* display: none; */
+    visibility: hidden;
     margin-top: 20px;
     text-align: center;
+    min-width: 362px;
+    max-width: 362px;
+    min-height: 436px;
+    max-height: 436px;
 }
 #qr-code img {
     max-width: 450px; 
     width: 100%; 
     height: auto; 
+}
+
+.loader {
+    border: 8px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 8px solid green;
+        width: 80px;
+        height: 80px;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+        position: fixed;
+        left: 50%;
+        right: 0;
+        bottom: 50%;
+        display: none;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 

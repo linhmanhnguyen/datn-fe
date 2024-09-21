@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TOPICO</title>
+ <title>TECHSTORE</title>
 
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="/publics/swiperJs/swiper-bundle.min.css" />
@@ -16,6 +16,7 @@
 
     <!-- Link File CSS -->
     <link rel="stylesheet" href="/publics/assets/styles/style.css">
+    <script src="/publics/js/authCheck.js" defer></script>
 
     <style>
         .details-content table {
@@ -65,20 +66,31 @@
     <header>
 
         <div class="header-top">
-            <div class="contanier">
+            <div class="container">
                 <p></p>
-                <div class="link-top-heder">
-                    <a href="#">My Account</a>
-                    <a href="#">My Wishlist</a>
-                    <a href="#">Sign In</a>
-                    <a href="#">Compare</a>
+                <div class="link-top-header">
+                    <% if (isAuthenticated) { %>
+                         <a href="/v1/sites/" id="authLink">Đăng xuất</a>
+                    <% } else { %>
+                        <a href="/v1/sites/auth/login" id="authLink">Đăng nhập</a>
+                    <% } %>
                 </div>
             </div>
         </div>
+        
+        <script>
+    document.getElementById("authLink").addEventListener("click", function() {
+        if (isAuthenticated) {
+            document.cookie = "userID=; gioHangID=; token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            window.location.href = "/v1/sites/auth/login"; // Chuyển hướng về trang đăng nhập
+        }
+    });
+</script>        
+        
 
         <div class="header-info">
             <div class="contanier">
-                <img src="/publics/assets/img/home/logo.png" alt="">
+               <h2 style="font-size: 20px;">TECHSTORE</h2>
 
                 <div class="search-bar">
                     <form action="">
@@ -187,11 +199,6 @@
                                 <% }) %>
                     </p>
 
-                    <div id="login-prompt">
-                        <p>Bạn cần đăng nhập tài khoản để thực hiện hành động này.</p>
-                        <a href="/v1/sites/login" class="btn-login">Đăng nhập</a>
-                    </div>
-
                     <form id="myForm">
                         <button type="submit" class="add-to-cart add-to-cart2">Thêm vào giỏ hàng</button>
 
@@ -285,7 +292,7 @@
                             <img src="<%= product.imgHover %>" class="hover-img" alt="Product Hover Image">
                         </div>
                         <div class="content">
-                            <a class="product-item-link">
+                            <a href="/v1/sites/buy-product/?productID=<%= product._id %>" class="product-item-link">
                                 <%= product.tenSanPham %>
                             </a>
                             <div class="stars">
@@ -376,6 +383,10 @@
                 });
         });
     </script>
+
+<div class="back-top">
+    <a href="#">Quay lại trên cùng</a>
+</div>
 </body>
 
 </html>

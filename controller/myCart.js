@@ -14,9 +14,6 @@ function formatPrice(price) {
 class MyCart {
     static async getCartByCartID(gioHangID) {
         try {
-            if (!gioHangID) {
-                throw new Error('gioHangID không được định nghĩa');
-            }
             const url = `${CONSTANTS.LOCAL_URL}/v1/sites/cart/?gioHangID=${gioHangID}`;
             const response = await axios.get(url);
             

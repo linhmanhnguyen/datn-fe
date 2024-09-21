@@ -22,4 +22,12 @@ authenticationRouter.get(
 );
 
 
+// Render Login page
+authenticationRouter.get(
+  CONSTANTS.API_AUTH_SIGNUP,
+  // apiKeyAuthenticate(),
+  // validateRequest(CONSTANTS.VALIDATOR_AUTH_API),
+  AuthController.renderRegister
+);
+
 export default authenticationRouter;

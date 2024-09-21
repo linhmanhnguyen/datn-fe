@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>TOPICO</title>
+ <title>TECHSTORE</title>
 
 
     <!-- Link CSS của Swiper -->
@@ -37,6 +37,8 @@
         }
     </style>
 
+    <script src="/publics/js/authCheck.js" defer></script>
+
 </head>
 
 <body class="menu-side-in-bag">
@@ -44,20 +46,30 @@
     <header>
 
         <div class="header-top">
-            <div class="contanier">
+            <div class="container">
                 <p></p>
-                <div class="link-top-heder">
-                    <a href="#">My Account</a>
-                    <a href="#">My Wishlist</a>
-                    <a href="#">Sign In</a>
-                    <a href="#">Compare</a>
+                <div class="link-top-header">
+                    <% if (isAuthenticated) { %>
+                         <a href="/v1/sites/" id="authLink">Đăng xuất</a>
+                    <% } else { %>
+                        <a href="/v1/sites/auth/login" id="authLink">Đăng nhập</a>
+                    <% } %>
                 </div>
             </div>
         </div>
 
+        <script>
+    document.getElementById("authLink").addEventListener("click", function() {
+        if (isAuthenticated) {
+            document.cookie = "userID=; gioHangID=; token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            window.location.href = "/v1/sites/auth/login"; // Chuyển hướng về trang đăng nhập
+        }
+    });
+</script> 
+        
         <div class="header-info">
             <div class="contanier">
-                <img src="/publics/assets/img/home/logo.png" alt="">
+               <h2 style="font-size: 20px;">TECHSTORE</h2>
 
                 <div class="search-bar">
                     <form action="">
@@ -68,7 +80,7 @@
                 <div class="card">
                     <a href="/v1/sites/my-cart/">
                         <i class="fa-solid fa-bag-shopping"></i>
-                        <span class="count-in-card">2</span>
+                        <span class="count-in-card"> <%= soSanPhamTrongGio %> </span>
                     </a>
                 </div>
             </div>
@@ -170,7 +182,7 @@
                                 </div>
                                 <div class="div-inp">
                                     <i class="fa-solid fa-map-marked-alt"></i>
-                                    <input type="text" id="tinh" placeholder="Tỉnh/Huyện/Xã">
+                                    <input type="text" id="tinh" placeholder="Xã/Huyện/Tỉnh">
                                 </div>
                                 <div class="div-inp">
                                     <i class="fa-solid fa-location-dot"></i>
@@ -197,6 +209,8 @@
                     hàng</button>
             </div>
         </form>
+
+        <div class="loader"></div>
     </section>
 
     <div class="back-top">
@@ -228,6 +242,9 @@
             const hinhThucThanhToan = document.getElementById('cktt').value;
             const trangThaiDonHang = "66ed3f4d627473063b5bb04c";
             const thoiGianGiaoHangDuKien = new Date().toISOString();
+            const loader = document.querySelector('.loader');
+
+            loader.style.display = 'block';
 
             const diaChiGiaoHang = {
                 tenNguoiNhan: document.getElementById('tenNguoiNhan').value,
@@ -258,6 +275,8 @@
                 .then(data => {
                     if (data.success) {
                         alert('Đơn hàng đã được tạo thành công!');
+                        loader.style.display = 'none';
+
 
                         const notificationData = {
                             donHangID: data.data._id,
@@ -275,7 +294,7 @@
                             .then(notificationResponse => notificationResponse.json())
                             .then(notificationData => {
                                 if (notificationData.success) {
-                                    alert('Thông báo đã được gửi thành công!');
+                                    alert('Vui lòng chờ xác nhận đơn hàng');
                                 } else {
                                     alert('Có lỗi xảy ra khi gửi thông báo: ' + notificationData.message);
                                 }
@@ -328,10 +347,10 @@
                     const gioHangID = '<%= encodeURIComponent(gioHangID) %>';
 
                     if (option.dataset.method === 'bank-transfer') {
-                        qrCodeDiv.style.display = 'block';
+                        qrCodeDiv.style.visibility = 'visible';
                         qrImg.src = `https://img.vietqr.io/image/ICB-109875941614-compact.png?amount=${encodedTotalAmount}&addInfo=Thanh%20toan%20don%20hang%20${encodeURIComponent(gioHangID)}&accountName=109875941614`;
                     } else {
-                        qrCodeDiv.style.display = 'none';
+                        qrCodeDiv.style.visibility = 'hidden';
                     }
                 });
             });

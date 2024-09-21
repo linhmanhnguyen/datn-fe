@@ -21,7 +21,8 @@
 
         <div class="side-content">
             <div class="profile">
-                <div class="profile-img bg-img" style="background-image: url(/publics/assets/img/dashboard/3.jpeg)">
+                <div class="profile-img bg-img"
+                    style="background-image: url('https://i.pinimg.com/564x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg')">
                 </div>
                 <h4>David Green</h4>
                 <small>Art Director</small>
@@ -30,42 +31,17 @@
             <div class="side-menu">
                 <ul>
                     <li>
-                        <a href="" class="active">
+                        <a href="/v1/admin/products" class="active">
                             <span class="las la-home"></span>
                             <small>Dashboard</small>
                         </a>
                     </li>
                     <li>
-                        <a href="/v1/admin/">
-                            <span class="las la-user-alt"></span>
-                            <small>Profile</small>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <span class="las la-envelope"></span>
-                            <small>Mailbox</small>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <span class="las la-clipboard-list"></span>
-                            <small>Projects</small>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
+                        <a href="/v1/admin/orders">
                             <span class="las la-shopping-cart"></span>
                             <small>Orders</small>
                         </a>
                     </li>
-                    <li>
-                        <a href="">
-                            <span class="las la-tasks"></span>
-                            <small>Tasks</small>
-                        </a>
-                    </li>
-
                 </ul>
             </div>
         </div>
@@ -95,7 +71,9 @@
                     </div>
 
                     <div class="user">
-                        <div class="bg-img" style="background-image: url(/publics/assets/img/dashboard/1.jpeg)"></div>
+                        <div class="bg-img"
+                            style="background-image: url('https://i.pinimg.com/564x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg')">
+                        </div>
 
                         <span class="las la-power-off"></span>
                         <span>Logout</span>
@@ -174,16 +152,135 @@
                 <div class="records table-responsive">
 
                     <div class="record-header">
-                        <div class="add">
-                            <span>Entries</span>
-                            <select name="" id="">
-                                <option value="">ID</option>
-                            </select>
-                            <button>Add record</button>
-                        </div>
-
                         <div class="browse">
-                            <input type="search" placeholder="Search" class="record-search">
+                            <input type="search" placeholder="Search" class="record-search" id="orderSearchInput">
+
+                            <script>
+                                // Listen for search input
+                                document.querySelector('.record-search').addEventListener('input', function () {
+                                    const query = this.value.trim(); // Get search input value
+
+                                    // Call the API to search orders
+                                    searchOrders(query);
+                                });
+
+                                // Function to send search query to the server
+                                function searchOrders(query) {
+                                    fetch('http://localhost:3300/v1/sites/search-order', {
+                                        method: 'POST', // POST request
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify({ query }), // Send the query in the body
+                                    })
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            if (data.success) {
+
+                                                console.log(JSON.stringify(data.orders))
+
+                                                renderOrderTable(data.orders);
+                                            } else {
+                                                console.error('Error fetching orders:', data.message);
+                                            }
+                                        })
+                                        .catch(error => {
+                                            console.error('Error:', error);
+                                        });
+                                }
+
+                                // Function to dynamically render the table rows
+
+                                function renderOrderTable(data, status = []) {
+                                    // Ensure data is an array
+                                    if (!Array.isArray(data) || data.length === 0) {
+                                        // Handle the case where there's no data (empty or undefined)
+                                        document.querySelector('tbody').innerHTML = `
+            <tr>
+                <td colspan="6">Không có đơn hàng nào.</td>
+            </tr>`;
+                                        return;
+                                    }
+
+                                    // Render the order table rows if data is valid
+                                    const tableBody = data.map(order => {
+                                        return `
+        <tr>
+            <td>${order._id}</td>
+            <td>
+                <div class="client">
+                    <div class="client-img bg-img" style="background-image: url('https://i.pinimg.com/564x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg')">
+                    </div>
+                    <div class="client-info">
+                        <h4>${order.userID?.userInfo_id?.name || 'Chưa có tên'}</h4>
+                        <small>${order.userID?.email || 'Chưa có email'}</small>
+                    </div>
+                </div>
+            </td>
+            <td>${order.hinhThucThanhToan}</td>
+            <td>${new Date(order.thoiGianGiaoHangDuKien).toLocaleDateString('vi-VN')}</td>
+            <td><span class="paid">${order.trangThaiDonHang?.tenTrangThai || 'Chưa có trạng thái'}</span></td>
+            <td>
+                <button type="button" class="order-action-btn edit-order-btn" onclick="toggleUpdateForm('${order._id}')">
+                    <i class="fa-regular fa-pen-to-square" title="Sửa đơn hàng"></i>
+                </button>
+                <button type="button" class="order-action-btn delete-order-btn" onclick="deleteOrder('${order._id}')">
+                    <i class="fa-solid fa-trash" title="Xóa đơn hàng"></i>
+                </button>
+            </td>
+        </tr>
+        <tr id="update-form-${order._id}" style="display: none;">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="update-form-order">
+                <select class="select-order-status" onchange="updateOrderStatus(this.value, '${order._id}')">
+                    <% status.forEach(function(data) { %>
+                                                        <option value="<%= data._id %>">
+                                                            <%= data.tenTrangThai %>
+                                                        </option>
+                                                        <% }); %>
+                </select>
+            </td>
+            <td class="edit-form-action-cell">
+                <button type="button" class="apply-order-btn" onclick="saveUpdate('${order._id}')">Lưu</button>
+                <button type="button" class="cancel-order-btn" onclick="toggleUpdateForm('${order._id}')">Hủy</button>
+            </td>
+        </tr>
+    `;
+                                    }).join('');
+
+                                    // Insert the rows into the table
+                                    document.querySelector('tbody').innerHTML = tableBody;
+
+                                    // Sample functions for handling actions
+                                    function toggleUpdateForm(orderId) {
+                                        const formRow = document.getElementById(`update-form-${orderId}`);
+                                        formRow.style.display = formRow.style.display === 'none' ? 'table-row' : 'none';
+                                    }
+
+                                    function deleteOrder(orderId) {
+                                        // Logic to delete the order (e.g., make an API call)
+                                        console.log(`Deleting order with ID: ${orderId}`);
+                                    }
+
+                                    function updateOrderStatus(statusId, orderId) {
+                                        // Logic to update the order status (e.g., make an API call)
+                                        console.log(`Updating order ${orderId} to status ${statusId}`);
+                                    }
+
+                                    function saveUpdate(orderId) {
+                                        // Logic to save updates (e.g., make an API call)
+                                        console.log(`Saving update for order ${orderId}`);
+                                    }
+
+                                }
+
+
+                            </script>
+
+
                             <select name="" id="">
                                 <option value="">Status</option>
                             </select>
@@ -212,7 +309,7 @@
                                             <td>
                                                 <div class="client">
                                                     <div class="client-img bg-img"
-                                                        style="background-image: url(/publics/assets/img/dashboard/1.jpeg)">
+                                                        style="background-image: url('https://i.pinimg.com/564x/0d/64/98/0d64989794b1a4c9d89bff571d3d5842.jpg')">
                                                     </div>
                                                     <div class="client-info">
                                                         <% if (order.gioHangID && order.gioHangID.danhSachSanPham &&
@@ -243,7 +340,8 @@
 
                                             <td>
                                                 <button type="button" class="order-action-btn edit-order-btn"
-                                                    onclick="toggleUpdateForm('<%= order._id %>')" class="icon-button">
+                                                    onclick="toggleUpdateForm('<%= order._id %>', '<%= order.userID.email %>')"
+                                                    class="icon-button">
                                                     <i class="fa-regular fa-pen-to-square" title="Sửa đơn hàng"></i>
                                                 </button>
                                                 <button type="button" class="order-action-btn delete-order-btn"
@@ -295,7 +393,7 @@
 
     </div>
 
-    <script type="text/javascript" src="/publics/js/dashboard.js"></script>
+    <script type="text/javascript" src="/publics/js/orders-admin.js"></script>
 
 </body>
 

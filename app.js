@@ -6,6 +6,8 @@ import cookieParser from 'cookie-parser';
 import routes from './routes/index.js';
 import { CONSTANTS } from './utils/constants.js';
 
+import authCheck from './middleware/authCheck.js';
+
 const __dirname = path.resolve();
 
 const app = express();
@@ -13,6 +15,8 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(cookieParser());
+app.use(authCheck)
+
 app.use(bodyParser.json({ limit: CONSTANTS.MAX_JSON_BODY_REQUEST }));
 app.use(cors({ origin: "*" }));
 

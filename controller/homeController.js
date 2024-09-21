@@ -70,23 +70,37 @@ class HomeController {
                 phones: '66eae9759358dc725422687a',
                 watches: '66eb18c79358dc725422688d',
             };
-
-            const [laptopsResult, phonesResult, watchesResult, productsResult, soSanPhamTrongGioResult] = await Promise.all([
+    
+            // Prepare an array of promises, starting with product fetches
+            const productPromises = [
                 HomeController.getProductsByCategoryID(categoryIDs.laptops),
                 HomeController.getProductsByCategoryID(categoryIDs.phones),
                 HomeController.getProductsByCategoryID(categoryIDs.watches),
                 HomeController.danhSachSanPhamCoLuotGiamGiaCaoNhat(),
-                CartController.getCartByCartID(req.cookies.gioHangID)
-            ]);
-
+            ];
+    
+            let soSanPhamTrongGioResult;
+    
+            if (req.cookies.gioHangID) {
+                productPromises.push(CartController.getCartByCartID(req.cookies.gioHangID));
+            } else {
+                soSanPhamTrongGioResult = { success: true, data: { totalItems: 0 } };
+            }
+    
+            const [laptopsResult, phonesResult, watchesResult, productsResult, cartResult] = await Promise.all(productPromises);
+    
+            if (!soSanPhamTrongGioResult) {
+                soSanPhamTrongGioResult = cartResult;
+            }
+    
             res.render('home-admin', { 
                 laptops: laptopsResult.success ? laptopsResult.data : [],
                 phones: phonesResult.success ? phonesResult.data : [],
                 watches: watchesResult.success ? watchesResult.data : [],
                 products: productsResult.success ? productsResult.data : [],
-                soSanPhamTrongGio: soSanPhamTrongGioResult.success ? soSanPhamTrongGioResult.data.totalItems : []
+                soSanPhamTrongGio: soSanPhamTrongGioResult.success ? soSanPhamTrongGioResult.data.totalItems : 0
             });
-
+    
         } catch (error) {
             console.error("Render Error:", error);
             res.render('home-admin', { 
@@ -94,9 +108,11 @@ class HomeController {
                 phones: [],
                 watches: [],
                 products: [],
+                soSanPhamTrongGio: 0 
             });
         }
     }
+    
 }
 
 export default HomeController;
